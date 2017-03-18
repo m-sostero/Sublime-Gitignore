@@ -40,13 +40,13 @@ class rungiboCommand(sublime_plugin.WindowCommand):
             package = zipfile.ZipFile(package_path, 'r')
             path = self._bp_folder + '/' + bp
             f = package.open(path, 'r')
-            text = f.read().decode()
+            text = f.read()
             f.close()
             return text
         else:
             file_path = os.path.join(package_path, self._bp_folder, bp)
             f = open(file_path, 'r')
-            text = f.read().decode()
+            text = f.read()
             f.close()
             return text
 
@@ -88,9 +88,9 @@ class rungiboCommand(sublime_plugin.WindowCommand):
 
         for bp in self.chosen_array:
             text = self._loadfile(bp + ".gitignore")
-            final = final + '###' + bp + '###\n\n' + text + '\n\n'
+            final = final + '###' + bp + '###\n\n' + text 
 
-        final = final.strip()
+        final = final.strip() + '\n'
         view = sublime.active_window().new_file()
         view.run_command('writegibo', {'bp': final})
 
